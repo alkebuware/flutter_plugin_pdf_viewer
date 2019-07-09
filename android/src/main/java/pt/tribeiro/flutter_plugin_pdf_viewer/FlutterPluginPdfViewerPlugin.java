@@ -41,10 +41,20 @@ public class FlutterPluginPdfViewerPlugin implements MethodCallHandler {
             public void run() {
                 switch (call.method) {
                     case "getNumberOfPages":
-                        result.success(getNumberOfPages((String) call.argument("filePath")));
+                        instance.activity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                result.success(getNumberOfPages((String) call.argument("filePath")));
+                            }
+                        });
                         break;
                     case "getPage":
-                        result.success(getPage((String) call.argument("filePath"), (int) call.argument("pageNumber")));
+                        instance.activity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                result.success(getPage((String) call.argument("filePath"), (int) call.argument("pageNumber")));
+                            }
+                        });
                         break;
                     default:
                         result.notImplemented();

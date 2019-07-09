@@ -30,9 +30,10 @@ class _PDFPageState extends State<PDFPage> {
   _repaint() {
     provider = FileImage(File(widget.imgPath));
     final resolver = provider.resolve(createLocalImageConfiguration(context));
-    resolver.addListener((imgInfo, alreadyPainted) {
+    ImageStreamListener listener = ImageStreamListener((imgInfo, alreadyPainted) {
       if (!alreadyPainted) setState(() {});
     });
+    resolver.addListener(listener);
   }
 
   @override
